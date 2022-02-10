@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
 
 namespace BaseApi.DataEF.Migrations
 {
-    public partial class BaseDatabase : Migration
+    public partial class NewDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -26,8 +28,8 @@ namespace BaseApi.DataEF.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -157,12 +159,12 @@ namespace BaseApi.DataEF.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "cdf165e8-472e-4cf6-8383-cf78b735e121", "33275e4f-7720-42bb-86cb-06b8d0466fb1", "Administrator", "ADMINISTRATOR" });
+                values: new object[] { "c4bff2f6-cf59-47ed-b160-bca95f9e6518", "632eca8d-4355-4fc3-9e55-30d7afa0b3b4", "Administrator", "ADMINISTRATOR" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "4afabcba-7251-4389-9abc-158712273603", "531a4fb6-ce6a-47d9-9a94-06775db5c519", "User", "USER" });
+                values: new object[] { "e37e2326-4630-46e5-bd34-a85b179dc191", "b3ca4d6d-a87a-4caa-8769-be1eaa40634c", "User", "USER" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
