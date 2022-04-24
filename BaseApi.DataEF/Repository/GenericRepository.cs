@@ -28,7 +28,7 @@ namespace BaseApi.DataEF.Repository
             await _db.AddRangeAsync(t);
         }
 
-        public async Task<int> CountAsync(Expression<Func<T, bool>> predicate = null)
+        public async Task<int> CountAsync(Expression<Func<T, bool>>? predicate = null)
         {
             return predicate is null
                 ? await _db.CountAsync()
@@ -70,7 +70,7 @@ namespace BaseApi.DataEF.Repository
             return await query.AsNoTracking().ToListAsync();
         }
 
-        public async Task<T> GetAsync(Expression<Func<T, bool>> match, params Expression<Func<T, object>>[] includes)
+        public async Task<T?> GetAsync(Expression<Func<T, bool>> match, params Expression<Func<T, object>>[] includes)
         {
             IQueryable<T> query = _db;
             query = AddIncludes(query, includes);
@@ -81,6 +81,11 @@ namespace BaseApi.DataEF.Repository
         {
             _db.Attach(t);
             _context.Entry(t).State = EntityState.Modified;
+        }
+        
+        public async Task<bool> Exists(Expression<Func<T, bool>> match)
+        {
+            return await _db.FirstOrDefaultAsync(match) is not null;
         }
 
         private IQueryable<T> AddIncludes(IQueryable<T> query, Expression<Func<T, object>>[] includes)
@@ -93,12 +98,7 @@ namespace BaseApi.DataEF.Repository
             return query;
         }
 
-        public async Task<bool> Exists(Expression<Func<T, bool>> match)
-        {
-            return await _db.FirstOrDefaultAsync(match) is not null;
-        }
-
-        public IQueryable<T> GetAllQuery(Expression<Func<T, bool>>? predicate, Expression<Func<T, object>>? orderBy, bool desc, params Expression<Func<T, object>>[] includes)
+        private IQueryable<T> GetAllQuery(Expression<Func<T, bool>>? predicate, Expression<Func<T, object>>? orderBy, bool desc, params Expression<Func<T, object>>[] includes)
         {
             IQueryable<T> query = _db;
 
